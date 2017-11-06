@@ -1,0 +1,9 @@
+{
+  "name": "alm_user_transfer",
+  "version": "0.0.1",
+  "dependencies": {
+    "hpe-alm-octane-js-rest-sdk" : "12.53.20",
+    "node-rest-client" : "3.1.0",
+    "underscore":"1.8.3"
+  }
+}

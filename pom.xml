@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.hpe.adm.nga.mediolanum</groupId>
+    <artifactId>mediolanum</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.hpe.adm.nga.sdk</groupId>
+            <artifactId>sdk-src</artifactId>
+            <version>12.55.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.13</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.hpe.adm.nga.sdk</groupId>
+                <artifactId>sdk-generate-entity-models-maven-plugin</artifactId>
+                <version>12.55.8-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <clientId>mediolanum_51e0v18d2kn15um93ep6mx49m</clientId>
+                    <clientSecret>)a530cc23beba3fedP</clientSecret>
+                    <server>http://myd-vm18992.hpeswlab.net:25675</server>
+                    <sharedSpace>1001</sharedSpace>
+                    <workSpace>1003</workSpace>
+                    <!--
+                        By default the plugin will generate the sources to the generated-source directory under
+                        the target.  If you wish to place this in a different place then use this parameter
+                    -->
+                    <!-- <generatedSourcesDirectory></generatedSourcesDirectory> -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <executions>
+                    <execution>
+                        <id>addGeneratedEntitiesSources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <!--
+                                  This assumes that you leave the configuration of the plugin above
+                                  to use the maven generated-sources directory as the place where the generated
+                                  sources will be
+                                -->
+                                <source>${project.build.directory}/generated-sources</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--
+                The sources need to be compiled using Java 8 at least.  Use this if this needs to
+                be explicit
+            -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
